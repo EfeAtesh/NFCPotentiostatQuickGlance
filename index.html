@@ -54,9 +54,9 @@ section{position:relative;z-index:1;padding:72px 0}
 .glass{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:16px;
+  border-radius:60px;
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  padding:32px;
+  padding:44px;
   transition:background .3s,border-color .3s,box-shadow .3s;
 }
 .glass:hover{background:var(--card-hover);border-color:var(--border-hover)}
@@ -126,8 +126,8 @@ h2 span{color:var(--text2);font-weight:400}
 /* Work areas */
 .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:640px){.work-grid{grid-template-columns:1fr}}
-.wc{padding:24px 28px;position:relative;overflow:hidden}
-.wc::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:2px}
+.wc{padding:32px 36px;position:relative;overflow:hidden}
+.wc::before{content:'';position:absolute;top:12px;left:0;width:3px;height:calc(100% - 24px);border-radius:2px}
 .wc.teal::before{background:#2BB89A}
 .wc.coral::before{background:#F0997B}
 .wc.purple::before{background:#AFA9EC}
@@ -160,11 +160,59 @@ h2 span{color:var(--text2);font-weight:400}
 /* Resources */
 .res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:640px){.res-grid{grid-template-columns:1fr}}
-.rcard{padding:24px;text-align:center;text-decoration:none;color:var(--text);display:block;transition:transform .25s,border-color .25s}
+.rcard{padding:32px;text-align:center;text-decoration:none;color:var(--text);display:block;transition:transform .25s,border-color .25s}
 .rcard:hover{transform:translateY(-3px);border-color:var(--accent)}
 .rcard h3{font-size:14px;font-weight:500;margin-bottom:4px}
 .rcard p{font-size:12px;color:var(--text3)}
 .rcard .ico{width:28px;height:28px;margin:0 auto 10px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Architecture diagram */
+.arch-svg{display:block;width:100%;height:auto;min-width:520px}
+.arch-svg .abox{fill:rgba(0,0,0,0.02);stroke:rgba(0,0,0,0.12);stroke-width:.5;rx:10}
+.arch-svg .abox-accent{fill:rgba(13,158,130,0.06);stroke:rgba(13,158,130,0.35);stroke-width:.5;rx:10}
+.arch-svg .atxt{fill:#1a1a2e;font-family:'Inter',sans-serif;font-size:11px;font-weight:600}
+.arch-svg .asub{fill:#7a7a90;font-family:'Inter',sans-serif;font-size:8.5px}
+.arch-svg .afl{stroke:var(--accent);stroke-width:1.5;fill:none}
+.arch-svg .aico{fill:var(--accent);opacity:.7}
+
+/* Spec cards */
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:640px){.spec-grid{grid-template-columns:1fr}}
+.scard{padding:30px 34px}
+.scard .sico{width:22px;height:22px;margin-bottom:8px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.scard h3{font-size:13px;font-weight:600;margin-bottom:2px}
+.scard .sval{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:2px}
+.scard .sdesc{font-size:11px;color:var(--text3);line-height:1.5}
+
+/* Protocol section */
+.proto-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:640px){.proto-row{grid-template-columns:1fr}}
+.proto-box{padding:30px 36px}
+.proto-box h3{font-size:13px;font-weight:600;margin-bottom:10px}
+.proto-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.proto-list li{font-size:12px;color:var(--text2);display:flex;align-items:baseline;gap:8px}
+.proto-list .code{font-family:'SF Mono',Menlo,monospace;font-size:11px;color:var(--accent);font-weight:600;min-width:36px}
+.proto-fmt{padding:12px 16px;border-radius:8px;background:rgba(0,0,0,0.03);font-family:'SF Mono',Menlo,monospace;font-size:12px;color:var(--text2);margin-top:10px;letter-spacing:.5px;text-align:center}
+
+/* Technique cards */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.tech-grid{grid-template-columns:1fr}}
+.tcard{padding:30px 36px;position:relative;overflow:hidden}
+.tcard::before{content:'';position:absolute;top:12px;left:0;width:3px;height:calc(100% - 24px);border-radius:2px;background:var(--accent)}
+.tcard h3{font-size:13px;font-weight:600;margin-bottom:4px}
+.tcard .tabbr{font-size:10px;color:var(--accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.tcard p{font-size:12px;color:var(--text2);line-height:1.6}
+.tcard .tparams{font-size:11px;color:var(--text3);margin-top:6px;font-style:italic}
+.tcard-full{grid-column:1/-1}
+
+/* Feature cards */
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:640px){.feat-grid{grid-template-columns:1fr}}
+.fcard{padding:32px 36px}
+.fcard .fico{width:28px;height:28px;margin-bottom:10px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.fcard h3{font-size:14px;font-weight:600;margin-bottom:4px}
+.fcard p{font-size:12px;color:var(--text2);line-height:1.6}
+.fcard .ftag{display:inline-block;font-size:10px;font-weight:500;padding:3px 8px;border-radius:10px;background:rgba(13,158,130,0.08);color:var(--accent);margin-top:8px}
 
 /* Footer */
 footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);position:relative;z-index:1;letter-spacing:.5px}
@@ -223,6 +271,213 @@ footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);pos
   </div>
 </section>
 
+<!-- PROJECT INFO -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Motivation</div>
+      <h2>Problem &amp; Solution</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="glass fcard reveal d1">
+        <svg class="fico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <h3>The Problem</h3>
+        <p>Conventional potentiostat systems are bulky, expensive, and require wired connections and dedicated power sources. This limits their use in point-of-care diagnostics, field testing, and resource-limited settings where portable, low-cost electrochemical sensing is critically needed.</p>
+      </div>
+      <div class="glass fcard reveal d1">
+        <svg class="fico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <h3>Our Solution</h3>
+        <p>A fully wireless, battery-free potentiostat powered entirely via NFC energy harvesting from a smartphone. The system integrates a custom analog front-end, on-device AI for real-time analysis, and a companion Android app — enabling electrochemical measurements with nothing more than a phone tap.</p>
+      </div>
+      <div class="glass fcard reveal d2">
+        <svg class="fico" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <h3>Innovation &amp; Value</h3>
+        <p>First system to combine NFC energy harvesting, on-device AI inference (Gemma 3 1B), and voice-controlled electrochemistry in a single platform. Eliminates batteries, cables, and expensive lab equipment — reducing cost by over 90% compared to benchtop potentiostats while enabling truly portable biosensing.</p>
+      </div>
+      <div class="glass fcard reveal d2">
+        <svg class="fico" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <h3>Key Outputs</h3>
+        <p>Custom 4-layer PCB with STM32U545 + ST25DV, 3D-printed enclosure with magnetic electrode holder, Android app (SensitifyGo NFC Edition) with real-time plotting, embedded firmware supporting 5 electroanalytical techniques, and on-device AI agent for automated data interpretation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM ARCHITECTURE -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Architecture</div>
+      <h2>System Overview</h2>
+    </div>
+    <div class="glass reveal d1" style="padding:28px">
+      <div class="dwrap">
+        <svg class="arch-svg" viewBox="0 0 780 220" role="img" aria-label="System architecture block diagram">
+          <!-- Smartphone -->
+          <rect class="abox-accent" x="10" y="40" width="120" height="140" rx="10"/>
+          <text class="atxt" x="70" y="85" text-anchor="middle">Smartphone</text>
+          <text class="asub" x="70" y="102" text-anchor="middle">Android App</text>
+          <text class="asub" x="70" y="115" text-anchor="middle">Gemma 3 1B AI</text>
+          <text class="asub" x="70" y="128" text-anchor="middle">Voice Control</text>
+          <text class="asub" x="70" y="141" text-anchor="middle">Real-time Plot</text>
+          <rect x="42" y="155" width="56" height="14" rx="4" fill="rgba(13,158,130,0.12)" stroke="none"/>
+          <text class="asub" x="70" y="165" text-anchor="middle" style="font-weight:600;fill:var(--accent)">NFC Reader</text>
+
+          <!-- RF Link -->
+          <line class="afl" x1="130" y1="110" x2="175" y2="110" marker-end="url(#ah)" stroke="var(--accent)"/>
+          <line class="afl" x1="175" y1="120" x2="130" y2="120" marker-end="url(#ah)" stroke="var(--accent)"/>
+          <text class="asub" x="152" y="100" text-anchor="middle" style="fill:var(--accent);font-weight:600">13.56</text>
+          <text class="asub" x="152" y="138" text-anchor="middle" style="fill:var(--accent)">MHz</text>
+
+          <!-- ST25DV -->
+          <rect class="abox" x="178" y="55" width="110" height="110" rx="10"/>
+          <text class="atxt" x="233" y="82" text-anchor="middle">ST25DV</text>
+          <text class="asub" x="233" y="98" text-anchor="middle">NFC Tag IC</text>
+          <text class="asub" x="233" y="113" text-anchor="middle">FTP Mailbox</text>
+          <text class="asub" x="233" y="128" text-anchor="middle">Energy Harvest</text>
+          <rect x="200" y="137" width="66" height="14" rx="4" fill="rgba(239,159,39,0.1)" stroke="none"/>
+          <text class="asub" x="233" y="147" text-anchor="middle" style="font-weight:600;fill:#EF9F27">V_EH out</text>
+
+          <!-- I2C Link -->
+          <line class="afl" x1="288" y1="105" x2="328" y2="105" marker-end="url(#ah)" stroke="var(--accent)"/>
+          <line class="afl" x1="328" y1="115" x2="288" y2="115" marker-end="url(#ah)" stroke="var(--accent)"/>
+          <text class="asub" x="308" y="96" text-anchor="middle" style="font-weight:600">I²C</text>
+
+          <!-- STM32 -->
+          <rect class="abox" x="330" y="40" width="130" height="140" rx="10"/>
+          <text class="atxt" x="395" y="68" text-anchor="middle">STM32U545</text>
+          <text class="asub" x="395" y="84" text-anchor="middle">Cortex-M33</text>
+          <text class="asub" x="395" y="99" text-anchor="middle">12-bit DAC × 2</text>
+          <text class="asub" x="395" y="114" text-anchor="middle">14-bit ADC</text>
+          <text class="asub" x="395" y="129" text-anchor="middle">128× oversampling</text>
+          <rect x="356" y="138" width="78" height="14" rx="4" fill="rgba(13,158,130,0.12)" stroke="none"/>
+          <text class="asub" x="395" y="148" text-anchor="middle" style="font-weight:600;fill:var(--accent)">CMSIS-NN</text>
+          <text class="asub" x="395" y="168" text-anchor="middle">~5 mW total</text>
+
+          <!-- DAC/ADC Link -->
+          <line class="afl" x1="460" y1="105" x2="500" y2="105" marker-end="url(#ah)" stroke="var(--accent)"/>
+          <line class="afl" x1="500" y1="115" x2="460" y2="115" marker-end="url(#ah)" stroke="var(--accent)"/>
+          <text class="asub" x="480" y="96" text-anchor="middle" style="font-weight:600">DAC</text>
+          <text class="asub" x="480" y="130" text-anchor="middle" style="font-weight:600">ADC</text>
+
+          <!-- Analog Front-End -->
+          <rect class="abox" x="502" y="45" width="130" height="130" rx="10"/>
+          <text class="atxt" x="567" y="72" text-anchor="middle">Analog AFE</text>
+          <text class="asub" x="567" y="90" text-anchor="middle">AD8606 Op-Amp</text>
+          <text class="asub" x="567" y="105" text-anchor="middle">TIA (10kΩ, ±165µA)</text>
+          <text class="asub" x="567" y="120" text-anchor="middle">DG636 + MAX4634</text>
+          <text class="asub" x="567" y="135" text-anchor="middle">Signal Mux</text>
+          <rect x="523" y="143" width="88" height="14" rx="4" fill="rgba(240,153,123,0.12)" stroke="none"/>
+          <text class="asub" x="567" y="153" text-anchor="middle" style="font-weight:600;fill:#F0997B">TPS61094 Boost</text>
+
+          <!-- Electrode Link -->
+          <line class="afl" x1="632" y1="110" x2="670" y2="110" marker-end="url(#ah)" stroke="var(--accent)"/>
+
+          <!-- Electrodes -->
+          <rect class="abox-accent" x="672" y="65" width="96" height="90" rx="10"/>
+          <text class="atxt" x="720" y="95" text-anchor="middle">Electrodes</text>
+          <text class="asub" x="720" y="112" text-anchor="middle">WE / CE / RE</text>
+          <text class="asub" x="720" y="127" text-anchor="middle">3-electrode cell</text>
+
+          <!-- Power flow (bottom) -->
+          <path d="M233,165 L233,200 L395,200 L395,180" class="afl" stroke="#EF9F27" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+          <text class="asub" x="314" y="195" text-anchor="middle" style="fill:#EF9F27;font-weight:600">NFC Energy Harvesting Power Path</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARDWARE -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Hardware</div>
+      <h2>Technical Specifications</h2>
+    </div>
+    <div class="spec-grid">
+      <div class="glass scard reveal d1">
+        <svg class="sico" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="15" x2="22" y2="15"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="15" x2="4" y2="15"/></svg>
+        <h3>Microcontroller</h3>
+        <div class="sval">STM32U545CE</div>
+        <div class="sdesc">ARM Cortex-M33, ultra-low-power, UFQFPN48 package. STOP2 deep sleep for NFC-powered operation.</div>
+      </div>
+      <div class="glass scard reveal d1">
+        <svg class="sico" viewBox="0 0 24 24"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"/><line x1="2" y1="20" x2="2.01" y2="20"/></svg>
+        <h3>NFC Interface</h3>
+        <div class="sval">ST25DV</div>
+        <div class="sdesc">Dynamic NFC/RFID tag with 256-byte Fast Transfer Mailbox, energy harvesting output (V_EH), I²C interface.</div>
+      </div>
+      <div class="glass scard reveal d1">
+        <svg class="sico" viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        <h3>ADC Resolution</h3>
+        <div class="sval">14-bit</div>
+        <div class="sdesc">128× hardware oversampling. Effective resolution &gt;16 bits with averaging. 5-cycle sampling time.</div>
+      </div>
+      <div class="glass scard reveal d2">
+        <svg class="sico" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <h3>DAC Output</h3>
+        <div class="sval">12-bit × 2</div>
+        <div class="sdesc">Dual channel: CH1 drives control amplifier potential, CH2 sets TIA virtual ground reference.</div>
+      </div>
+      <div class="glass scard reveal d2">
+        <svg class="sico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <h3>Analog Front-End</h3>
+        <div class="sval">AD8606</div>
+        <div class="sdesc">Dual CMOS op-amp: control amplifier + transimpedance amplifier. 10kΩ TIA (±165µA range).</div>
+      </div>
+      <div class="glass scard reveal d2">
+        <svg class="sico" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <h3>Power Budget</h3>
+        <div class="sval">~5 mW</div>
+        <div class="sdesc">Entirely from NFC energy harvesting via TPS61094 boost converter. Zero batteries required.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORTED TECHNIQUES -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Electrochemistry</div>
+      <h2>Supported Techniques</h2>
+    </div>
+    <div class="tech-grid">
+      <div class="glass tcard reveal d1">
+        <div class="tabbr">CV</div>
+        <h3>Cyclic Voltammetry</h3>
+        <p>Sweeps potential linearly between two vertices while measuring current. The most versatile technique for studying redox reactions, electrode kinetics, and reaction mechanisms.</p>
+        <div class="tparams">Parameters: E_start, E_high, E_low, scan rate (cV/s), cycles, quiet time</div>
+      </div>
+      <div class="glass tcard reveal d1">
+        <div class="tabbr">DPV</div>
+        <h3>Differential Pulse Voltammetry</h3>
+        <p>Applies a series of fixed-magnitude pulses superimposed on a linear potential ramp. Measures the difference between two currents sampled before and after each pulse, offering superior sensitivity over CV for trace analyte detection.</p>
+        <div class="tparams">Parameters: E_start, E_end, pulse amplitude, pulse width, step potential</div>
+      </div>
+      <div class="glass tcard reveal d2">
+        <div class="tabbr">SWV</div>
+        <h3>Square Wave Voltammetry</h3>
+        <p>Combines a staircase potential with a symmetric square wave. Forward and reverse currents are sampled and differenced, eliminating capacitive background current and achieving the highest sensitivity among pulse techniques.</p>
+        <div class="tparams">Parameters: E_start, E_end, amplitude, frequency, step potential</div>
+      </div>
+      <div class="glass tcard reveal d2">
+        <div class="tabbr">CA</div>
+        <h3>Chronoamperometry</h3>
+        <p>Steps the potential to a fixed value and records the resulting current vs. time. Ideal for studying diffusion-controlled processes, enzyme kinetics, and biosensor response curves following the Cottrell equation.</p>
+        <div class="tparams">Parameters: E_step, duration, sample interval</div>
+      </div>
+      <div class="glass tcard tcard-full reveal d3">
+        <div class="tabbr">LSV</div>
+        <h3>Linear Sweep Voltammetry</h3>
+        <p>Sweeps the potential in one direction at a constant rate while measuring current. A single-sweep subset of CV, commonly used for determining onset potentials, Tafel slopes, and half-wave potentials in analytical and corrosion studies.</p>
+        <div class="tparams">Parameters: E_start, E_end, scan rate, step size</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- WORK AREAS -->
 <section>
   <div class="container">
@@ -269,6 +524,149 @@ footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);pos
           <li>Efficiency and cost analysis</li>
           <li>Ferricyanide measurements</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NFC PROTOCOL -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Communication</div>
+      <h2>NFC Protocol <span>&middot; ST25DV Fast Transfer</span></h2>
+    </div>
+    <div class="glass reveal d1" style="padding:28px">
+      <h3 style="font-size:13px;font-weight:600;margin-bottom:8px">Packet Format</h3>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:10px">Binary protocol over ST25DV 256-byte mailbox. CRC-8 integrity check on every packet.</p>
+      <div class="proto-fmt">[CMD: 1 byte] [PAYLOAD_LEN: 2 bytes LE] [PAYLOAD: 0–252 bytes] [CRC8: 1 byte]</div>
+    </div>
+    <div class="proto-row">
+      <div class="glass proto-box reveal d2">
+        <h3>Command IDs</h3>
+        <ul class="proto-list">
+          <li><span class="code">0x01</span> GET_STATUS — query device state</li>
+          <li><span class="code">0x02</span> PING — echo test</li>
+          <li><span class="code">0x14</span> RUN_CV — cyclic voltammetry</li>
+          <li><span class="code">0x1E</span> RUN_DPV — differential pulse</li>
+          <li><span class="code">0x12</span> RUN_SWV — square wave</li>
+          <li><span class="code">0x28</span> RUN_CA — chronoamperometry</li>
+          <li><span class="code">0x3C</span> RUN_LSV — linear sweep</li>
+          <li><span class="code">0x20</span> SET_GAIN — configure mux channel</li>
+          <li><span class="code">0x30</span> GET_RESULTS — chunked data read</li>
+          <li><span class="code">0xFF</span> ABORT — stop experiment</li>
+        </ul>
+      </div>
+      <div class="glass proto-box reveal d2">
+        <h3>Response Codes</h3>
+        <ul class="proto-list">
+          <li><span class="code">0x00</span> OK — success</li>
+          <li><span class="code">0x01</span> BUSY — experiment running</li>
+          <li><span class="code">0x02</span> ERROR — general failure</li>
+          <li><span class="code">0x03</span> BAD_CMD — unknown command</li>
+          <li><span class="code">0x04</span> BAD_PARAMS — invalid parameters</li>
+          <li><span class="code">0x05</span> BAD_CRC — checksum mismatch</li>
+          <li><span class="code">0x07</span> DATA_CHUNK — more data follows</li>
+          <li><span class="code">0x08</span> DATA_LAST — final chunk</li>
+          <li><span class="code">0x09</span> LOW_POWER — RF field weak</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANDROID APP -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Software</div>
+      <h2>SensitifyGo <span>&middot; NFC Edition</span></h2>
+    </div>
+    <div class="feat-grid">
+      <div class="glass fcard reveal d1">
+        <svg class="fico" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <h3>Real-time Plotting</h3>
+        <p>WebView-based interactive charts render voltammograms and amperograms in real time as data arrives from the NFC potentiostat. Supports multi-series overlay, zoom, pan, and color customization.</p>
+        <span class="ftag">WebView + JavaScript Bridge</span>
+      </div>
+      <div class="glass fcard reveal d1">
+        <svg class="fico" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        <h3>4 Experiment Modes</h3>
+        <p>Dedicated fragments for Cyclic Voltammetry, Differential Pulse Voltammetry, Amperometry, and Potentiometry. Each mode has its own parameter configuration panel and visualization layout.</p>
+        <span class="ftag">Fragment Architecture</span>
+      </div>
+      <div class="glass fcard reveal d2">
+        <svg class="fico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <h3>Data Export</h3>
+        <p>Save experiment data as CSV files for further analysis. Built-in file manager for organizing measurements. Export to spreadsheets with full metadata (timestamps, parameters, device info).</p>
+        <span class="ftag">CSV &amp; File Manager</span>
+      </div>
+      <div class="glass fcard reveal d2">
+        <svg class="fico" viewBox="0 0 24 24"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"/><line x1="2" y1="20" x2="2.01" y2="20"/></svg>
+        <h3>NFC FTP Monitor</h3>
+        <p>Live traffic inspector shows every mailbox read/write in real time. Debug NFC communication issues with full hex dump, auto-scrolling log, and pause/resume controls.</p>
+        <span class="ftag">Protocol Debugger</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI FEATURES -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Intelligence</div>
+      <h2>On-Device AI <span>&middot; Gemma 3 1B</span></h2>
+    </div>
+    <div class="glass reveal d1" style="max-width:740px;margin:0 auto">
+      <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:8px">AI-Powered Analysis</h3>
+          <p style="font-size:12px;color:var(--text2);line-height:1.7">The system runs Google's Gemma 3 1B model directly on the smartphone via MediaPipe LLM Inference — no cloud, no internet, no data leaves the device. The AI agent interprets voltammograms, identifies redox peaks, calculates concentrations, and provides plain-language explanations of electrochemical results.</p>
+        </div>
+        <div style="flex:1;min-width:260px">
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:8px">Voice-Controlled Lab</h3>
+          <p style="font-size:12px;color:var(--text2);line-height:1.7">Hands-free operation with Android SpeechRecognizer enables voice commands for starting experiments, switching modes, and querying results — critical in lab environments where gloves or sample handling prevent touchscreen interaction. Text-to-Speech reads back results and AI interpretations aloud.</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+        <span class="ftag">On-Device Inference</span>
+        <span class="ftag">Privacy-First</span>
+        <span class="ftag">Offline Capable</span>
+        <span class="ftag">Voice Commands</span>
+        <span class="ftag">MediaPipe</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUTURE WORK -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Roadmap</div>
+      <h2>Future Work</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="glass fcard reveal d1">
+        <svg class="fico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <h3>Cloud Integration</h3>
+        <p>Optional cloud sync for multi-device result sharing, collaborative analysis, and remote monitoring of long-running experiments. Maintaining offline-first architecture.</p>
+      </div>
+      <div class="glass fcard reveal d1">
+        <svg class="fico" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        <h3>Multiplexed Sensing</h3>
+        <p>Expand to multi-analyte detection with electrode array support. Simultaneous measurement of multiple biomarkers from a single sample.</p>
+      </div>
+      <div class="glass fcard reveal d2">
+        <svg class="fico" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <h3>Fine-Tuned AI Models</h3>
+        <p>Train domain-specific Gemma models on electrochemistry literature and lab data to improve peak detection accuracy, automatic technique selection, and anomaly identification.</p>
+      </div>
+      <div class="glass fcard reveal d2">
+        <svg class="fico" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <h3>Clinical Validation</h3>
+        <p>Partner with clinical labs for real-world biosensor validation. Target applications: glucose monitoring, heavy metal detection in water, and point-of-care infectious disease testing.</p>
       </div>
     </div>
   </div>
