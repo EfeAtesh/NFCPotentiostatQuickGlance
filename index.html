@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NFC Potentiostat – BME4496 Graduation Project</title>
+<meta name="description" content="NFC Potentiostat – A wireless electrochemical measurement platform. BME4496 Graduation Project.">
+<meta property="og:title" content="NFC Potentiostat">
+<meta property="og:description" content="A Wireless Electrochemical Measurement Platform">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --accent:#0D9E82;
+  --accent2:#7C5CBF;
+  --bg:#f6f6f9;
+  --card:rgba(255,255,255,0.6);
+  --card-hover:rgba(255,255,255,0.82);
+  --border:rgba(0,0,0,0.07);
+  --border-hover:rgba(0,0,0,0.14);
+  --text:#1a1a2e;
+  --text2:#5c5c72;
+  --text3:#9c9cb2;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--text);
+  line-height:1.65;overflow-x:hidden;
+}
+
+/* Progress bar */
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:100;width:0;transition:width .15s}
+
+/* Animated blobs */
+.blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.18}
+.b1{width:650px;height:650px;background:#2BB89A;top:-250px;left:-150px;animation:drift 25s ease-in-out infinite}
+.b2{width:500px;height:500px;background:#A78BFA;bottom:-180px;right:-120px;animation:drift 22s ease-in-out infinite reverse}
+.b3{width:420px;height:420px;background:#F472B6;top:45%;left:55%;animation:drift 28s ease-in-out infinite alternate}
+@keyframes drift{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(50px,-35px) scale(1.04)}
+  66%{transform:translate(-40px,45px) scale(.96)}
+}
+
+/* Layout */
+.container{max-width:920px;margin:0 auto;padding:0 24px}
+section{position:relative;z-index:1;padding:72px 0}
+
+/* Glass card */
+.glass{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  padding:32px;
+  transition:background .3s,border-color .3s,box-shadow .3s;
+}
+.glass:hover{background:var(--card-hover);border-color:var(--border-hover)}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.1s}
+.reveal.d2{transition-delay:.2s}
+.reveal.d3{transition-delay:.3s}
+
+/* Hero */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;position:relative;z-index:1;
+  flex-direction:column;
+}
+.hero-inner{animation:fadeUp 1s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero-tag{
+  display:inline-block;font-size:11px;font-weight:600;
+  letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);
+  margin-bottom:20px;
+}
+.hero h1{
+  font-size:clamp(38px,7vw,68px);font-weight:700;letter-spacing:-1.5px;line-height:1.08;
+  margin-bottom:14px;
+  background:linear-gradient(135deg,#1a1a2e 30%,var(--accent) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero .sub{
+  font-size:clamp(15px,2.4vw,19px);color:var(--text2);
+  font-weight:300;max-width:480px;margin:0 auto 12px;
+}
+.hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+.pill{
+  font-size:11px;font-weight:500;letter-spacing:.5px;
+  padding:6px 14px;border-radius:20px;
+  background:rgba(13,158,130,0.08);border:1px solid rgba(13,158,130,0.2);
+  color:var(--accent);
+}
+.ref-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 22px;border-radius:24px;
+  background:var(--accent);color:#fff;
+  font-size:13px;font-weight:500;text-decoration:none;
+  margin-bottom:32px;
+  transition:transform .2s,box-shadow .2s;
+  letter-spacing:0;text-transform:none;
+}
+.ref-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(13,158,130,0.3)}
+.ref-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.scroll-hint{
+  color:var(--text3);font-size:12px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  letter-spacing:1px;text-transform:uppercase;
+}
+.scroll-hint svg{width:18px;height:18px;stroke:var(--text3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* Section headings */
+.stag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h2{font-size:26px;font-weight:600;margin-bottom:20px;letter-spacing:-.3px}
+h2 span{color:var(--text2);font-weight:400}
+
+/* Work areas */
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.work-grid{grid-template-columns:1fr}}
+.wc{padding:24px 28px;position:relative;overflow:hidden}
+.wc::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:2px}
+.wc.teal::before{background:#2BB89A}
+.wc.coral::before{background:#F0997B}
+.wc.purple::before{background:#AFA9EC}
+.wc.amber::before{background:#EF9F27}
+.wc h3{font-size:14px;font-weight:600;margin-bottom:2px}
+.wc .cnt{font-size:11px;color:var(--text3);margin-bottom:10px}
+.wc ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.wc li{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px}
+.wc li::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.wc.teal li::before{background:#2BB89A}
+.wc.coral li::before{background:#F0997B}
+.wc.purple li::before{background:#AFA9EC}
+.wc.amber li::before{background:#EF9F27}
+
+/* Diagrams */
+.dcard{margin-bottom:20px}
+.dcard h3{font-size:14px;font-weight:500;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.dwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+.dwrap svg{display:block;width:100%;height:auto;min-width:520px}
+
+/* SVG classes */
+.dwrap svg .st{fill:rgba(0,0,0,0.02);stroke:rgba(0,0,0,0.12);stroke-width:.5}
+.dwrap svg .lb{fill:#1a1a2e;font-family:'Inter',sans-serif;font-size:12px;font-weight:600}
+.dwrap svg .sb{fill:#7a7a90;font-family:'Inter',sans-serif;font-size:10px}
+.dwrap svg .fl{stroke:rgba(0,0,0,0.32);stroke-width:1.5;fill:none}
+.dwrap svg .dl{stroke:rgba(0,0,0,0.1);stroke-width:.5;stroke-dasharray:4 3;fill:none}
+.dwrap svg .dm{fill:rgba(0,0,0,0.02);stroke:rgba(0,0,0,0.12);stroke-width:.5}
+.dwrap svg .rt{stroke:rgba(0,0,0,0.22);stroke-width:1;stroke-dasharray:5 3;fill:none}
+
+/* Resources */
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:640px){.res-grid{grid-template-columns:1fr}}
+.rcard{padding:24px;text-align:center;text-decoration:none;color:var(--text);display:block;transition:transform .25s,border-color .25s}
+.rcard:hover{transform:translateY(-3px);border-color:var(--accent)}
+.rcard h3{font-size:14px;font-weight:500;margin-bottom:4px}
+.rcard p{font-size:12px;color:var(--text3)}
+.rcard .ico{width:28px;height:28px;margin:0 auto 10px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Footer */
+footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);position:relative;z-index:1;letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<div class="blobs">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<!-- Shared SVG arrow markers -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(0,0,0,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+</svg>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">BME4496 &middot; Graduation Project of Efe ATE&#350; 22290588</div>
+    <h1>NFC Potentiostat</h1>
+    <p class="sub">A Wireless Electrochemical Measurement Platform</p>
+    <div class="hero-pills">
+      <span class="pill">NFC-Powered</span>
+      <span class="pill">Battery-Free</span>
+      <span class="pill">AI-Enhanced</span>
+    </div>
+    <a href="#references" class="ref-btn">References <svg viewBox="0 0 24 24"><polyline points="7 10 12 15 17 10"/></svg></a>
+    <div class="scroll-hint">
+      <span>or Scroll to explore</span>
+      <svg viewBox="0 0 24 24"><polyline points="7 10 12 15 17 10"/></svg>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ABOUT -->
+<section>
+  <div class="container">
+    <div class="glass reveal" style="max-width:740px;margin:0 auto">
+      <div class="stag">Overview</div>
+      <h2>About the Project</h2>
+      <p style="color:var(--text2)">
+        The NFC Potentiostat is a compact, wireless electrochemical measurement device designed for point-of-care diagnostics. Leveraging Near-Field Communication technology, it enables smartphone-powered cyclic voltammetry measurements without batteries or wired connections. The system integrates custom-designed hardware, a dedicated Android application, and an AI-powered analysis agent (Gemma) to deliver real-time electrochemical sensing capabilities.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK AREAS -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Methodology</div>
+      <h2>15 Work Areas <span>&middot; 4 Categories</span></h2>
+    </div>
+    <div class="work-grid">
+      <div class="glass wc teal reveal d1">
+        <h3>Electronic Design</h3>
+        <div class="cnt">4 areas</div>
+        <ul>
+          <li>Antenna design</li>
+          <li>NFC potentiostat circuit design</li>
+          <li>PCB soldering</li>
+          <li>Embedded code (ADC &amp; DAC)</li>
+        </ul>
+      </div>
+      <div class="glass wc coral reveal d1">
+        <h3>Mechanical Design</h3>
+        <div class="cnt">4 areas</div>
+        <ul>
+          <li>CNC antenna fabrication</li>
+          <li>Design with Fusion360</li>
+          <li>3D printing &ndash; first model</li>
+          <li>3D printing &ndash; magnetic (5th attempt)</li>
+        </ul>
+      </div>
+      <div class="glass wc purple reveal d2">
+        <h3>Software &amp; AI</h3>
+        <div class="cnt">3 areas</div>
+        <ul>
+          <li>Android app development</li>
+          <li>Gemma fine-tuning (AI agent)</li>
+          <li>Testing with the app</li>
+        </ul>
+      </div>
+      <div class="glass wc amber reveal d2">
+        <h3>Testing &amp; Validation</h3>
+        <div class="cnt">4 areas</div>
+        <ul>
+          <li>Calibration</li>
+          <li>Experimental tests</li>
+          <li>Efficiency and cost analysis</li>
+          <li>Ferricyanide measurements</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGRAMS -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">System Design</div>
+      <h2>UML Diagrams</h2>
+    </div>
+
+    <!-- State Machine -->
+    <div class="glass dcard reveal d1">
+      <h3>State Machine Diagram</h3>
+      <div class="dwrap">
+        <svg viewBox="0 0 680 230" role="img" aria-label="State machine diagram">
+          <circle cx="48" cy="60" r="7" fill="#0D9E82"/>
+          <line class="fl" x1="55" y1="60" x2="78" y2="60" marker-end="url(#ah)"/>
+          <rect class="st" x="80" y="42" width="80" height="36" rx="8"/>
+          <text class="lb" x="120" y="60" text-anchor="middle" dominant-baseline="central">Idle</text>
+          <rect class="st" x="228" y="42" width="104" height="36" rx="8"/>
+          <text class="lb" x="280" y="60" text-anchor="middle" dominant-baseline="central">Scanning</text>
+          <rect class="st" x="400" y="42" width="116" height="36" rx="8"/>
+          <text class="lb" x="458" y="60" text-anchor="middle" dominant-baseline="central">Measuring</text>
+          <rect class="st" x="400" y="160" width="116" height="36" rx="8"/>
+          <text class="lb" x="458" y="178" text-anchor="middle" dominant-baseline="central">Analysing</text>
+          <rect class="st" x="180" y="160" width="104" height="36" rx="8"/>
+          <text class="lb" x="232" y="178" text-anchor="middle" dominant-baseline="central">Complete</text>
+          <line class="fl" x1="160" y1="60" x2="226" y2="60" marker-end="url(#ah)"/>
+          <text class="sb" x="193" y="50" text-anchor="middle">NFC tap</text>
+          <line class="fl" x1="332" y1="60" x2="398" y2="60" marker-end="url(#ah)"/>
+          <text class="sb" x="365" y="50" text-anchor="middle">connected</text>
+          <line class="fl" x1="458" y1="78" x2="458" y2="158" marker-end="url(#ah)"/>
+          <text class="sb" x="472" y="120" dominant-baseline="central">data ready</text>
+          <line class="fl" x1="400" y1="178" x2="286" y2="178" marker-end="url(#ah)"/>
+          <text class="sb" x="343" y="168" text-anchor="middle">done</text>
+          <path class="fl" d="M180,178 L44,178 L44,60 L78,60" marker-end="url(#ah)"/>
+          <text class="sb" x="56" y="122" dominant-baseline="central">reset</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Activity Diagram -->
+    <div class="glass dcard reveal d2">
+      <h3>Activity Diagram &ndash; Measurement Workflow</h3>
+      <div class="dwrap">
+        <svg viewBox="0 0 680 400" role="img" aria-label="Activity diagram">
+          <circle cx="300" cy="20" r="7" fill="#0D9E82"/>
+          <line class="fl" x1="300" y1="27" x2="300" y2="40" marker-end="url(#ah)"/>
+          <rect class="st" x="220" y="40" width="160" height="34" rx="8"/>
+          <text class="lb" x="300" y="57" text-anchor="middle" dominant-baseline="central">Connect via NFC</text>
+          <line class="fl" x1="300" y1="74" x2="300" y2="90" marker-end="url(#ah)"/>
+          <rect class="st" x="220" y="90" width="160" height="34" rx="8"/>
+          <text class="lb" x="300" y="107" text-anchor="middle" dominant-baseline="central">Configure parameters</text>
+          <line class="fl" x1="300" y1="124" x2="300" y2="140" marker-end="url(#ah)"/>
+          <rect class="st" x="220" y="140" width="160" height="34" rx="8"/>
+          <text class="lb" x="300" y="157" text-anchor="middle" dominant-baseline="central">Run CV scan</text>
+          <line class="fl" x1="300" y1="174" x2="300" y2="190" marker-end="url(#ah)"/>
+          <rect class="st" x="220" y="190" width="160" height="34" rx="8"/>
+          <text class="lb" x="300" y="207" text-anchor="middle" dominant-baseline="central">Process data</text>
+          <line class="fl" x1="300" y1="224" x2="300" y2="240" marker-end="url(#ah)"/>
+          <rect class="st" x="220" y="240" width="160" height="34" rx="8"/>
+          <text class="lb" x="300" y="257" text-anchor="middle" dominant-baseline="central">Display results</text>
+          <line class="fl" x1="300" y1="274" x2="300" y2="294" marker-end="url(#ah)"/>
+          <path class="dm" d="M300,294 L330,320 L300,346 L270,320 Z"/>
+          <text class="sb" x="300" y="321" text-anchor="middle" dominant-baseline="central" style="font-weight:600;font-size:10px">Repeat?</text>
+          <line class="fl" x1="300" y1="346" x2="300" y2="370" marker-end="url(#ah)"/>
+          <text class="sb" x="314" y="360">[no]</text>
+          <circle cx="300" cy="382" r="10" fill="none" stroke="#0D9E82" stroke-width="1.5"/>
+          <circle cx="300" cy="382" r="5" fill="#0D9E82"/>
+          <path class="fl" d="M270,320 L152,320 L152,107 L218,107" marker-end="url(#ah)"/>
+          <text class="sb" x="246" y="312" text-anchor="end">[yes]</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Sequence Diagram -->
+    <div class="glass dcard reveal d3">
+      <h3>Sequence Diagram &ndash; CV Measurement</h3>
+      <div class="dwrap">
+        <svg viewBox="0 0 680 350" role="img" aria-label="Sequence diagram">
+          <rect class="st" x="40" y="16" width="76" height="28" rx="4"/>
+          <text class="lb" x="78" y="30" text-anchor="middle" dominant-baseline="central">User</text>
+          <rect class="st" x="170" y="16" width="76" height="28" rx="4"/>
+          <text class="lb" x="208" y="30" text-anchor="middle" dominant-baseline="central">App</text>
+          <rect class="st" x="300" y="16" width="76" height="28" rx="4"/>
+          <text class="lb" x="338" y="30" text-anchor="middle" dominant-baseline="central">NFC</text>
+          <rect class="st" x="430" y="16" width="76" height="28" rx="4"/>
+          <text class="lb" x="468" y="30" text-anchor="middle" dominant-baseline="central">MCU</text>
+          <rect class="st" x="562" y="16" width="76" height="28" rx="4"/>
+          <text class="lb" x="600" y="30" text-anchor="middle" dominant-baseline="central">Sensor</text>
+          <line class="dl" x1="78" y1="44" x2="78" y2="338"/>
+          <line class="dl" x1="208" y1="44" x2="208" y2="338"/>
+          <line class="dl" x1="338" y1="44" x2="338" y2="338"/>
+          <line class="dl" x1="468" y1="44" x2="468" y2="338"/>
+          <line class="dl" x1="600" y1="44" x2="600" y2="338"/>
+          <line class="fl" x1="78" y1="76" x2="206" y2="76" marker-end="url(#ah)"/>
+          <text class="sb" x="142" y="68" text-anchor="middle">start measurement</text>
+          <line class="fl" x1="208" y1="106" x2="336" y2="106" marker-end="url(#ah)"/>
+          <text class="sb" x="272" y="98" text-anchor="middle">connect</text>
+          <line class="fl" x1="338" y1="136" x2="466" y2="136" marker-end="url(#ah)"/>
+          <text class="sb" x="402" y="128" text-anchor="middle">establish link</text>
+          <line class="rt" x1="466" y1="166" x2="340" y2="166" marker-end="url(#ah)"/>
+          <text class="sb" x="403" y="158" text-anchor="middle">ACK</text>
+          <line class="fl" x1="208" y1="196" x2="466" y2="196" marker-end="url(#ah)"/>
+          <text class="sb" x="337" y="188" text-anchor="middle">CV parameters</text>
+          <line class="fl" x1="468" y1="226" x2="598" y2="226" marker-end="url(#ah)"/>
+          <text class="sb" x="533" y="218" text-anchor="middle">apply voltage</text>
+          <line class="rt" x1="598" y1="256" x2="470" y2="256" marker-end="url(#ah)"/>
+          <text class="sb" x="534" y="248" text-anchor="middle">read current</text>
+          <line class="rt" x1="466" y1="286" x2="210" y2="286" marker-end="url(#ah)"/>
+          <text class="sb" x="338" y="278" text-anchor="middle">measurement data</text>
+          <line class="rt" x1="206" y1="316" x2="80" y2="316" marker-end="url(#ah)"/>
+          <text class="sb" x="143" y="308" text-anchor="middle">display results</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Links</div>
+      <h2>References</h2>
+    </div>
+    <div class="res-grid reveal d1">
+      <a href="#" class="glass rcard">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        <h3>GitHub Repository</h3>
+        <p>Source code &amp; documentation</p>
+      </a>
+      <a href="#" class="glass rcard">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <h3>Publication</h3>
+        <p>Research paper</p>
+      </a>
+      <a href="#" class="glass rcard">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+        <h3>Contact</h3>
+        <p>Get in touch</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>&copy; 2025 NFC Potentiostat &middot; BME4496 Graduation Project of Efe ATE&#350; 22290588</p>
+</footer>
+
+<script>
+/* Scroll reveal */
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')});
+},{threshold:.12,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* Progress bar */
+window.addEventListener('scroll',()=>{
+  const p=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  document.getElementById('prog').style.width=p+'%';
+},{passive:true});
+</script>
+</body>
+</html>
