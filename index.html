@@ -163,6 +163,18 @@ h2 span{color:var(--text2);font-weight:400}
 .badge-wrap img{height:30px;border-radius:6px;transition:transform .2s}
 .badge-wrap img:hover{transform:translateY(-2px)}
 
+/* Gallery */
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+@media(max-width:640px){.gallery-grid{grid-template-columns:1fr}}
+.gallery-grid .glass{padding:0;overflow:hidden;border-radius:20px}
+.gallery-grid img{width:100%;display:block;border-radius:20px 20px 0 0}
+.gallery-grid .gcap{padding:18px 24px;font-size:13px;font-weight:500;color:var(--text2)}
+.gallery-grid .gcap span{display:block;font-size:11px;color:var(--text3);margin-top:4px}
+.gallery-full{margin-top:20px}
+.gallery-full .glass{padding:0;overflow:hidden;border-radius:20px}
+.gallery-full img{width:100%;display:block;border-radius:20px 20px 0 0}
+.gallery-full .gcap{padding:18px 24px;font-size:13px;font-weight:500;color:var(--text2)}
+
 /* Resources */
 .res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:640px){.res-grid{grid-template-columns:1fr}}
@@ -854,6 +866,32 @@ footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);pos
   </div>
 </section>
 
+<!-- GALLERY -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Hardware</div>
+      <h2>Design Evolution</h2>
+    </div>
+    <div class="gallery-grid reveal d1">
+      <div class="glass">
+        <img src="1779290557949.jpeg" alt="First prototype – Fusion 360 CAD render" loading="lazy">
+        <div class="gcap">First Prototype (v1)<span>Fusion 360 CAD render — flat PCB with integrated spiral antenna and MagSafe alignment ring</span></div>
+      </div>
+      <div class="glass">
+        <img src="NFCPOT-V2_2026-Jun-21_07-08-34AM-000_CustomizedView42059307540.png" alt="Final design – 3D printed enclosure" loading="lazy">
+        <div class="gcap">Final Design (v2)<span>3D-printed enclosure with magnetic alignment, NFC branding, and strip electrode slot</span></div>
+      </div>
+    </div>
+    <div class="gallery-full reveal d2">
+      <div class="glass">
+        <img src="Screenshot 2026-05-15 at 11.18.36.png" alt="PCB Layout – KiCad" loading="lazy">
+        <div class="gcap">PCB Layout<span>KiCad board design — STM32U545 MCU, ST25DV04KC NFC tag, TPS61094 buck-boost converter, AD8606 TIA, MAX4634 MUX</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- TECH STACK -->
 <section>
   <div class="container">
@@ -865,6 +903,7 @@ footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);pos
       <img alt="C" src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white">
       <img alt="STM32" src="https://img.shields.io/badge/STM32-03234B?style=for-the-badge&logo=stmicroelectronics&logoColor=white">
       <img alt="Java" src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white">
+      <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white">
       <img alt="Android" src="https://img.shields.io/badge/Android-34A853?style=for-the-badge&logo=android&logoColor=white">
       <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
       <img alt="NFC" src="https://img.shields.io/badge/NFC-002E5F?style=for-the-badge&logo=nfc&logoColor=white">
@@ -873,6 +912,7 @@ footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);pos
       <img alt="KiCad" src="https://img.shields.io/badge/KiCad-314CB0?style=for-the-badge&logo=kicad&logoColor=white">
       <img alt="Fusion 360" src="https://img.shields.io/badge/Fusion_360-FF6600?style=for-the-badge&logo=autodesk&logoColor=white">
       <img alt="Git" src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">
+      <img alt="VS Code" src="https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
       <img alt="STM32CubeIDE" src="https://img.shields.io/badge/STM32CubeIDE-03234B?style=for-the-badge&logo=stmicroelectronics&logoColor=white">
       <img alt="3D Printing" src="https://img.shields.io/badge/3D_Printing-00AE42?style=for-the-badge&logo=bambulab&logoColor=white">
     </div>
