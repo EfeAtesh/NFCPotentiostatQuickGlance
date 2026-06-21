@@ -158,6 +158,11 @@ h2 span{color:var(--text2);font-weight:400}
 .dwrap svg .dm{fill:rgba(0,0,0,0.02);stroke:rgba(0,0,0,0.12);stroke-width:.5}
 .dwrap svg .rt{stroke:rgba(0,0,0,0.22);stroke-width:1;stroke-dasharray:5 3;fill:none}
 
+/* Tech Stack badges */
+.badge-wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.badge-wrap img{height:30px;border-radius:6px;transition:transform .2s}
+.badge-wrap img:hover{transform:translateY(-2px)}
+
 /* Resources */
 .res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:640px){.res-grid{grid-template-columns:1fr}}
@@ -461,7 +466,7 @@ footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);pos
         <tr><td>Type</td><td>Potentiostat</td></tr>
         <tr><td>Configuration</td><td>1 channel, 3-electrode</td></tr>
         <tr><td>Power supply</td><td>NFC Energy Harvesting (battery-free)</td></tr>
-        <tr><td>Host interface</td><td>NFC 13.56 MHz (<a href="https://www.iso.org/standard/73602.html" target="_blank">ISO 15693</a>)</td></tr>
+        <tr><td>Host interface</td><td>NFC 13.56 MHz (<a href="https://www.iso.org/standard/90286.html" target="_blank">ISO 15693</a>)</td></tr>
         <tr><td>Power budget</td><td>~5 mW</td></tr>
         <tr><td>MCU</td><td><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32u545ce.html" target="_blank">STM32U545CE</a> (Cortex-M33)</td></tr>
         <tr><td>NFC IC</td><td><a href="https://www.st.com/en/nfc/st25dv-i2c-series-dynamic-nfc-tags.html" target="_blank">ST25DV</a> (FTP Mailbox)</td></tr>
@@ -846,6 +851,33 @@ footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);pos
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="stag">Technologies</div>
+      <h2>Tech Stack</h2>
+    </div>
+    <div class="badge-wrap reveal d1">
+      <img alt="C" src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white">
+      <img alt="STM32" src="https://img.shields.io/badge/STM32-03234B?style=for-the-badge&logo=stmicroelectronics&logoColor=white">
+      <img alt="Java" src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white">
+      <img alt="Android" src="https://img.shields.io/badge/Android-34A853?style=for-the-badge&logo=android&logoColor=white">
+      <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+      <img alt="NFC" src="https://img.shields.io/badge/NFC_13.56_MHz-002E5F?style=for-the-badge&logo=nfc&logoColor=white">
+      <img alt="ISO 15693" src="https://img.shields.io/badge/ISO_15693-1A1A2E?style=for-the-badge&logoColor=white">
+      <img alt="MediaPipe" src="https://img.shields.io/badge/MediaPipe-0097A7?style=for-the-badge&logo=mediapipe&logoColor=white">
+      <img alt="Gemma" src="https://img.shields.io/badge/Gemma_3_1B-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white">
+      <img alt="KiCad" src="https://img.shields.io/badge/KiCad-314CB0?style=for-the-badge&logo=kicad&logoColor=white">
+      <img alt="Fusion 360" src="https://img.shields.io/badge/Fusion_360-FF6600?style=for-the-badge&logo=autodesk&logoColor=white">
+      <img alt="Git" src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">
+      <img alt="VS Code" src="https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+      <img alt="STM32CubeIDE" src="https://img.shields.io/badge/STM32CubeIDE-03234B?style=for-the-badge&logo=stmicroelectronics&logoColor=white">
+      <img alt="3D Printing" src="https://img.shields.io/badge/3D_Printing-FF6F00?style=for-the-badge&logo=makerbot&logoColor=white">
+    </div>
   </div>
 </section>
 
