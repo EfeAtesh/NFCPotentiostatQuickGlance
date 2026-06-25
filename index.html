@@ -520,54 +520,6 @@ footer{text-align:center;padding:36px 24px;font-size:11px;color:var(--text3);pos
   </div>
 </section>
 
-<!-- SPECIFICATIONS -->
-<section>
-  <div class="container">
-    <div class="reveal">
-      <div class="stag">Datasheet</div>
-      <h2>Specifications</h2>
-    </div>
-    <div class="glass reveal d1" style="max-width:640px;margin:0 auto;padding:40px 52px">
-      <table class="spec-table">
-        <tr class="cat-row"><td colspan="2">General</td></tr>
-        <tr><td>Type</td><td>Potentiostat</td></tr>
-        <tr><td>Configuration</td><td>1 channel, 3-electrode</td></tr>
-        <tr><td>Power supply</td><td>NFC Energy Harvesting (battery-free)</td></tr>
-        <tr><td>Host interface</td><td>NFC 13.56 MHz (<a href="https://www.iso.org/standard/90286.html" target="_blank">ISO 15693</a>)</td></tr>
-        <tr><td>Power budget</td><td>~5 mW</td></tr>
-        <tr><td>MCU</td><td><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32u545ce.html" target="_blank">STM32U545CE</a> (Cortex-M33)</td></tr>
-        <tr><td>NFC IC</td><td><a href="https://www.st.com/en/nfc/st25dv-i2c-series-dynamic-nfc-tags.html" target="_blank">ST25DV</a> (FTP Mailbox)</td></tr>
-        <tr><td>Boost converter</td><td><a href="https://www.ti.com/product/TPS61094/part-details/TPS61094DSSR" target="_blank">TPS61094DSSR</a></td></tr>
-        <tr><td>Supercapacitor</td><td>5.5 V / 0.5 F (energy buffer)</td></tr>
-        <tr><td>Max data points</td><td>4 096 per experiment</td></tr>
-        <tr><td>Package</td><td>UFQFPN48</td></tr>
-        <tr class="cat-row"><td colspan="2">Potentiostat</td></tr>
-        <tr><td>Potential range</td><td>±1.25 V</td></tr>
-        <tr><td>Reference voltage</td><td>2.5 V (internal)</td></tr>
-        <tr><td>Virtual ground</td><td>V<sub>dd</sub>/2 (1.65 V)</td></tr>
-        <tr><td>Maximum current</td><td>±165 µA</td></tr>
-        <tr><td>Current resolution</td><td>~1.3 nA (effective)</td></tr>
-        <tr><td>TIA gain</td><td>10 kΩ (fixed)</td></tr>
-        <tr><td>Control amplifier</td><td><a href="https://www.analog.com/en/products/ad8606.html" target="_blank">AD8606</a> (dual CMOS)</td></tr>
-        <tr><td>Analog switch</td><td><a href="https://www.digikey.com/en/products/detail/vishay-siliconix/DG636EEN-T1-GE4/7422973" target="_blank">DG636EEN-T1-GE4</a> (DPDT)</td></tr>
-        <tr><td>Multiplexer</td><td><a href="https://www.analog.com/en/products/max4634.html" target="_blank">MAX4634</a> (4-ch mux)</td></tr>
-        <tr><td>ADC resolution</td><td>14-bit (128× oversampling)</td></tr>
-        <tr><td>DAC resolution</td><td>2 × 12-bit</td></tr>
-        <tr class="cat-row"><td colspan="2">Techniques</td></tr>
-        <tr><td>Cyclic Voltammetry</td><td>CV</td></tr>
-        <tr><td>Differential Pulse Voltammetry</td><td>DPV</td></tr>
-        <tr><td>Square Wave Voltammetry</td><td>SWV</td></tr>
-        <tr><td>Chronoamperometry</td><td>CA</td></tr>
-        <tr class="cat-row"><td colspan="2">Communication</td></tr>
-        <tr><td>Protocol</td><td>Binary over <a href="https://www.st.com/en/nfc/st25dv-i2c-series-dynamic-nfc-tags.html" target="_blank">ST25DV</a> Mailbox</td></tr>
-        <tr><td>Max packet size</td><td>256 bytes</td></tr>
-        <tr><td>Max payload</td><td>252 bytes</td></tr>
-        <tr><td>Integrity check</td><td>CRC-8</td></tr>
-        <tr><td>Polling interval</td><td>50 ms</td></tr>
-      </table>
-    </div>
-  </div>
-</section>
 
 <!-- SUPPORTED TECHNIQUES -->
 <section>
