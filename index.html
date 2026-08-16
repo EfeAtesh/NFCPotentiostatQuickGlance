@@ -1171,6 +1171,125 @@ canvas#cvCanvas {
   line-height: 1.5;
 }
 
+/* ==========================================================================
+   3D ENCLOSURE CAD MODEL EXPLORER
+   ========================================================================== */
+.cad-viewer-container {
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  box-shadow: var(--glass-card-shadow), var(--glass-inner-shadow);
+  padding: 32px;
+}
+
+.cad-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .cad-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cad-viewport-wrap {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, rgba(6, 10, 18, 0.85) 100%);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+#enclosure3DCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cad-overlay-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.cad-loading-spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 10, 18, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  gap: 12px;
+  transition: opacity 0.4s ease;
+}
+
+.cad-loading-spinner.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cad-controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cad-mat-btn-row, .cad-view-btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cad-btn {
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--code-bg);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cad-btn:hover, .cad-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
 /* Lightbox Modal */
 .glass-lightbox {
   position: fixed;
@@ -2097,6 +2216,82 @@ footer {
   </div>
 </section>
 
+<!-- 3D MECHANICAL ENCLOSURE CAD EXPLORER -->
+<section id="cad-explorer">
+  <div class="app-container">
+    <div class="reveal">
+      <div class="section-tag">Mechanical CAD</div>
+      <h2>3D Enclosure Explorer <span>&middot; MagSafe Snap Architecture</span></h2>
+    </div>
+
+    <div class="glass cad-viewer-container reveal reveal-delay-1">
+      <div class="cad-layout">
+        
+        <!-- 3D WebGL Viewport -->
+        <div class="cad-viewport-wrap">
+          <canvas id="enclosure3DCanvas"></canvas>
+          
+          <div class="cad-loading-spinner" id="cadLoader">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+            <span>Loading 3D CAD Mesh...</span>
+          </div>
+
+          <div class="cad-overlay-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            <span>Drag to Rotate &bull; Scroll to Zoom</span>
+          </div>
+        </div>
+
+        <!-- 3D Controls & Engineering Breakdown -->
+        <div class="cad-controls-panel">
+          <div>
+            <div style="font-size:0.75rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Autodesk Fusion 360 &middot; Iteration 5</div>
+            <h3 style="font-size:1.35rem; font-weight:700; color:var(--text-primary); margin-bottom:8px;">Zero-Screw Snap-Fit Enclosure</h3>
+            <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6;">
+              Engineered specifically for point-of-care diagnostics. Incorporates an embedded MagSafe neodymium magnet ring channel for precise NFC antenna concentricity, slide-in guide rails for standard 3-pin Screen-Printed Electrodes (SPE), and integrated PCB clip locks.
+            </p>
+          </div>
+
+          <!-- Material Finish Selector -->
+          <div>
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Surface Material Mode</label>
+            <div class="cad-mat-btn-row">
+              <button class="cad-btn active" data-mat="obsidian" onclick="setCadMaterial('obsidian')">Obsidian Matte</button>
+              <button class="cad-btn" data-mat="emerald" onclick="setCadMaterial('emerald')">Emerald Resin</button>
+              <button class="cad-btn" data-mat="glass" onclick="setCadMaterial('glass')">Frosted VisionOS</button>
+              <button class="cad-btn" data-mat="wireframe" onclick="setCadMaterial('wireframe')">CAD Wireframe</button>
+            </div>
+          </div>
+
+          <!-- Camera & View Controls -->
+          <div>
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Inspection Angles</label>
+            <div class="cad-view-btn-row">
+              <button class="cad-btn" onclick="setCadView('iso')">Isometric</button>
+              <button class="cad-btn" onclick="setCadView('top')">Top View</button>
+              <button class="cad-btn" onclick="setCadView('side')">Side Profile</button>
+              <button class="cad-btn" id="btnCadAutoRotate" onclick="toggleCadAutoRotate()">Auto-Rotate: ON</button>
+            </div>
+          </div>
+
+          <!-- Key Metrics Pills -->
+          <div style="display:flex; gap:8px; flex-wrap:wrap; border-top:1px solid var(--glass-border); padding-top:14px;">
+            <span class="hero-pill" style="font-size:0.7rem; padding:4px 10px;">MagSafe Concentric</span>
+            <span class="hero-pill" style="font-size:0.7rem; padding:4px 10px;">3-Pin SPE Strip Slot</span>
+            <span class="hero-pill" style="font-size:0.7rem; padding:4px 10px;">Zero Screws</span>
+            <a href="enclosure.stl" download class="hero-pill" style="font-size:0.7rem; padding:4px 10px; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+              Download STL
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 15 WORK AREAS METHODOLOGY -->
 <section>
   <div class="app-container">
@@ -2615,6 +2810,179 @@ function closeLightbox(e) {
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeLightbox();
+});
+</script>
+
+<!-- THREE.JS 3D STL ENCLOSURE VIEWER ENGINE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+<script src="enclosure_model.js"></script>
+
+<script>
+let cadScene, cadCamera, cadRenderer, cadControls, cadMesh;
+let cadAutoRotate = true;
+
+const cadMaterials = {
+  obsidian: new THREE.MeshStandardMaterial({
+    color: 0x1E2638,
+    roughness: 0.35,
+    metalness: 0.25
+  }),
+  emerald: new THREE.MeshStandardMaterial({
+    color: 0x10B981,
+    roughness: 0.2,
+    metalness: 0.5,
+    emissive: 0x064E3B,
+    emissiveIntensity: 0.15
+  }),
+  glass: new THREE.MeshPhysicalMaterial({
+    color: 0xFFFFFF,
+    transparent: true,
+    opacity: 0.65,
+    roughness: 0.1,
+    transmission: 0.85,
+    ior: 1.5,
+    clearcoat: 1.0
+  }),
+  wireframe: new THREE.MeshBasicMaterial({
+    color: 0x10B981,
+    wireframe: true
+  })
+};
+
+function init3DCadViewer() {
+  const canvas = document.getElementById('enclosure3DCanvas');
+  if (!canvas) return;
+  const container = canvas.parentElement;
+  if (!container) return;
+
+  cadScene = new THREE.Scene();
+
+  cadCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  cadCamera.position.set(65, 45, 65);
+
+  cadRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  cadRenderer.setSize(container.clientWidth, container.clientHeight);
+  cadRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  cadControls = new THREE.OrbitControls(cadCamera, cadRenderer.domElement);
+  cadControls.enableDamping = true;
+  cadControls.dampingFactor = 0.05;
+  cadControls.autoRotate = cadAutoRotate;
+  cadControls.autoRotateSpeed = 2.0;
+
+  // Studio Lights
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  cadScene.add(ambientLight);
+
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  keyLight.position.set(50, 80, 50);
+  cadScene.add(keyLight);
+
+  const fillLight = new THREE.DirectionalLight(0x10B981, 0.8);
+  fillLight.position.set(-50, -20, -50);
+  cadScene.add(fillLight);
+
+  const topLight = new THREE.DirectionalLight(0x06B6D4, 0.6);
+  topLight.position.set(0, 100, 0);
+  cadScene.add(topLight);
+
+  function base64ToArrayBuffer(base64) {
+    const binaryString = window.atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+
+  // Load STL Mesh
+  const loader = new THREE.STLLoader();
+  const loaderEl = document.getElementById('cadLoader');
+
+  function renderMeshFromGeometry(geometry) {
+    geometry.center();
+    geometry.computeVertexNormals();
+
+    cadMesh = new THREE.Mesh(geometry, cadMaterials.obsidian);
+    cadMesh.rotation.x = -Math.PI / 2;
+    cadMesh.scale.set(0.75, 0.75, 0.75);
+    cadScene.add(cadMesh);
+
+    if (loaderEl) loaderEl.classList.add('hidden');
+  }
+
+  if (window.ENCLOSURE_STL_B64) {
+    try {
+      const buffer = base64ToArrayBuffer(window.ENCLOSURE_STL_B64);
+      const geom = loader.parse(buffer);
+      renderMeshFromGeometry(geom);
+    } catch (e) {
+      console.warn('Base64 parse error, falling back to fetch:', e);
+      loader.load('enclosure.stl', renderMeshFromGeometry, undefined, () => {
+        if (loaderEl) loaderEl.classList.add('hidden');
+      });
+    }
+  } else {
+    loader.load('enclosure.stl', renderMeshFromGeometry, undefined, () => {
+      if (loaderEl) loaderEl.classList.add('hidden');
+    });
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    cadControls.update();
+    cadRenderer.render(cadScene, cadCamera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    if (!container) return;
+    cadCamera.aspect = container.clientWidth / container.clientHeight;
+    cadCamera.updateProjectionMatrix();
+    cadRenderer.setSize(container.clientWidth, container.clientHeight);
+  });
+}
+
+function setCadMaterial(type) {
+  if (!cadMesh) return;
+  document.querySelectorAll('.cad-mat-btn-row .cad-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-mat') === type);
+  });
+  if (cadMaterials[type]) {
+    cadMesh.material = cadMaterials[type];
+  }
+}
+
+function setCadView(view) {
+  if (!cadControls || !cadCamera) return;
+  cadControls.autoRotate = false;
+  const btn = document.getElementById('btnCadAutoRotate');
+  if (btn) btn.textContent = 'Auto-Rotate: OFF';
+  
+  if (view === 'iso') {
+    cadCamera.position.set(65, 45, 65);
+  } else if (view === 'top') {
+    cadCamera.position.set(0, 95, 0.01);
+  } else if (view === 'side') {
+    cadCamera.position.set(95, 0, 0);
+  }
+  cadControls.target.set(0, 0, 0);
+  cadControls.update();
+}
+
+function toggleCadAutoRotate() {
+  if (!cadControls) return;
+  cadAutoRotate = !cadAutoRotate;
+  cadControls.autoRotate = cadAutoRotate;
+  const btn = document.getElementById('btnCadAutoRotate');
+  if (btn) btn.textContent = `Auto-Rotate: ${cadAutoRotate ? 'ON' : 'OFF'}`;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  init3DCadViewer();
 });
 </script>
 
